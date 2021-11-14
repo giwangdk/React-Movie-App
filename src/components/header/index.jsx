@@ -30,9 +30,9 @@ export default function Header() {
     useEffect(() => {
         const shrinkHeader = () => {
             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                headerRef.current.classLit.add('shrink')
+                headerRef.current.classList.add('shrink')
             } else {
-                headerRef.current.classLit.remove('shrink')
+                headerRef.current.classList.remove('shrink')
             }
         }
         window.addEventListener('scroll' , shrinkHeader)
@@ -46,7 +46,7 @@ export default function Header() {
             <div className="header__wrap container">
                 <div className="logo">
                     <img src={logo} alt="" />
-                    <Link to="/">tMovies</Link>
+                    <Link to="/">WatcHere</Link>
                 </div>
                 <ul className="header__nav">
                     {
