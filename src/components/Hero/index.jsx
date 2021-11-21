@@ -29,7 +29,6 @@ const Hero = () => {
                 console.log(e);
             }
         }
-        console.log(movieItems);
         getMovies()
     }, [movieItems])
 
@@ -71,7 +70,7 @@ const HeroItem = props => {
         const videos = await tmdbApi.getVideos(category.movie, item.id);
 
         if (videos.results.length > 0) {
-            const videSrc = 'https://www.youtube.com/embed/' + videos.result[0].key;
+            const videSrc = 'https://www.youtube.com/embed/' + videos.results[0].key;
             modal.querySelector('.modal__content > iframe').setAttribute('src', videSrc)
         }else{
             modal.querySelector('modal__content').innerHTML = 'No Trailer'
@@ -94,7 +93,7 @@ const HeroItem = props => {
                         <Button onClick={()=>history.push('/movie/' + item.id)}>
                             watch now
                         </Button>
-                        <OutlineButton onClick={()=>console.log('trailer')}>
+                        <OutlineButton onClick={setModalActive}>
                             watch trailer
                         </OutlineButton>
                     </div>
