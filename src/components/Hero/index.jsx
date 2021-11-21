@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Button, { OutlineButton } from '../Button';
 import Modal, {ModalContent} from '../Modal';
 
-import tmdbApi , {movieType} from '../../api/tmdbApi'
+import tmdbApi , {movieType, category} from '../../api/tmdbApi'
 import apiConfig from '../../api/apiConfig';
 
 import './style.scss';
@@ -63,7 +63,22 @@ const HeroItem = props => {
     let history = useHistory()
 
     const item = props.item
-    const background = apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)
+    const background = apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path);
+
+    const setModalActive = async () => {
+        const modal = document.querySelector(`#modal_${item.id}`);
+
+        const videos = await tmdbApi.getVideos(category.movie, item.id);
+
+        if (videos.results.length > 0) {
+            const videSrc = 'https://www.youtube.com/embed/' + videos.result[0].key;
+            modal.querySelector('.modal__content > iframe').setAttribute('src', videSrc)
+        }else{
+            modal.querySelector('modal__content').innerHTML = 'No Trailer'
+        }
+
+        modal.classList.toggle('active')
+    }
 
     return (
         <div
